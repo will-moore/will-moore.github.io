@@ -17,3 +17,4 @@ One cool feature I'm using for the first time is the Disqus site to support
 comments on this static site, as described in the above post. 
 
 All I have to do now is think of something to blog about!
+
