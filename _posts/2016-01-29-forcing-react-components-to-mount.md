@@ -27,21 +27,22 @@ the data and the component will display it - great!
 {% endhighlight %}
 
 
-However, in the OMERO webclient, we need to use a ```<PlateGrid />```
+In the OMERO webclient, we need to use a ```<PlateGrid />```
 component to display a plate of images, specified by plateId.
 The plateId is a property of the ```<PlateGrid />``` component and is changed
-when the selected plate changes in the parent "tree".
+when the user selects a different plate in the left-hand tree.
 
 <img src="{{ site.baseurl }}/images/ReactCentrePanelPlate.png" style="width:773px; height:389px"/>
 
 However, if we do the loading of the specified plate in the
-```componentDidMount``` function, then this does not get called
-when the plateId is updated, so the component will not
+```componentDidMount``` function as shown above, then this does not get called
+when the ```plateId``` is updated, so the component will not
 re-render to show the new plate.
 
 
 {% highlight javascript %}
-	componentDidMount: function() {
+    # This doesn't get called when props.plateId changes
+    componentDidMount: function() {
         $.ajax({
             url: "/load/plate/" + this.props.plateId,
             success: function(plate) {
@@ -54,9 +55,20 @@ re-render to show the new plate.
 My solution
 ===========
 
-I found that if I add a ```key={plateId}``` to my <Plate /> component,
-then this would force the component to re-mount each time the
+I found that if I pass a ```key={plateId}``` to my ```<PlateGrid />``` component,
+in the parent's ```render()``` then this would force the component to re-mount each time the
 selected plateId changed.
+
+{% highlight javascript %}
+render: function() {
+    return (
+        <PlateGrid
+            key={plateId}
+        />
+    )
+});
+{% endhighlight %}
+
 However, I don't see this described anywhere in the React.js docs. Instead
 it seems that the ```key``` attribute is used to *avoid* re-mounting a
 components in a list, which makes me think that I'm misusing it. Is there
