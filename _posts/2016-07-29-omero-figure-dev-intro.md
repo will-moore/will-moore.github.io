@@ -96,6 +96,30 @@ dialog that shows details of selected panels. It listens to
 selction changes on the ```FigureModel```, and creates
 child Views for the selected panels each time.
 
+Dialogs
+-------
+
+There's quite a bit of functionality that happends in
+modal dialogs, E.g. drawing ROIs, cropping panels,
+opening figure files etc. As mentioned above, the HTML for
+each dialog is in the figure/index.html
+```<div class="modal" id="roiModal" ...```
+
+The bootstrap modal dialogs can then be shown with 
+``` $("#roiModal").modal("show"); ```
+
+In general, the UI logic for these is in a ```ModalView```
+E.g. ```RoiModalView``` that is instantiated once when the
+app starts and the ```FigureView``` is created, see
+```FigureView.initialize()```. The ```FigureModel``` is passed to
+each ```View``` so that the View can access the currently
+selected ```Panels```.
+Any code that needs to be run when the dialog opens can
+listen for that with
+{% highlight javascript %}
+$("#roiModal").bind("show.bs.modal", function(){...
+{% endhighlight %}
+
 
 Getting started
 ===============
