@@ -37,7 +37,7 @@ HTML
 
 The main HTML page is at [templates/figure/index.html](https://github.com/ome/figure/blob/master/templates/figure/index.html). Any HTML that is
 there when the app starts (page layout, menus etc) can be added here.
-We use the [Twitter bootstrap][http://getbootstrap.com/] framework (current version 3.0.0) for all this.
+We use the [Twitter bootstrap](http://getbootstrap.com/) framework (current version 3.0.0) for all this.
 The index.html also includes a fair number of dialogs that are hidden initially.
 
 Underscore templates
