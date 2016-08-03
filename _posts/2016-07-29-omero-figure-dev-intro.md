@@ -25,7 +25,7 @@ Code Layout
 JavaScript
 ----------
 
-OMERO.web is largely JavaScript, based on [Backbone.js](http://backbonejs.org/), under ```static/figure/```. A couple of files there are compiled by the grunt task. 
+OMERO.figure is largely JavaScript, based on [Backbone.js](http://backbonejs.org/), under ```static/figure/```. A couple of files there are compiled by the grunt task. 
 
  - ```static/figure/figure.js``` is all the JavaScript code, simply concatenated.
  - ```static/figure/js/templates.js``` is the compiled ```underscore.js``` templates.
