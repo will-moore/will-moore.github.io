@@ -136,3 +136,11 @@ I think that's enough for now. I may add more info later,
 depending on feedback from the workshop.
 
 Good Luck!
+
+UPDATE
+------
+
+Today (3rd August 2016) I went through this OMERO.figure intoduction with a number of
+our team and then a coding demo. The code changes from the demo are in
+[the first commit](https://github.com/ome/figure/pull/160/commits/e957801ce6677c6133918e8a05712365d13c6f11)
+of the [Lookup Tables PR #160](https://github.com/ome/figure/pull/160).
