@@ -64,7 +64,7 @@ from the movie and then use it to generate the gif:
 	$ ffmpeg -ss 1 -t 3 -i SnapzPro001.mov -i palette.png output.gif
 
 
-<img src="{{ site.baseurl }}/images/figure_gifs/ffmpeg.gif" style="width:500px; height:306px"/>
+<img src="{{ site.baseurl }}/images/ffmpeg.gif" style="width:500px; height:306px"/>
 
 
 mplayer, imagemagick and gifsicle
@@ -85,7 +85,7 @@ to convert the pngs to gifs and ```gifsicle``` to create the animation:
 	$ gifsicle --colors=256 --delay=20 --loopcount=0 --dither -O3 *.gif > animation.gif
 
 
-<img src="{{ site.baseurl }}/images/figure_gifs/gifsicle.gif" style="width:500px; height:306px"/>
+<img src="{{ site.baseurl }}/images/gifsicle.gif" style="width:500px; height:306px"/>
 
 The last 2 steps above can also be handled by the convert command from ```imagemagick```
 as discussed in this [stackexchange question](http://unix.stackexchange.com/questions/24014/creating-a-gif-animation-from-png-files).
@@ -93,7 +93,7 @@ as discussed in this [stackexchange question](http://unix.stackexchange.com/ques
 	# 20 hundredths of a second delay per frame (5 fps)
     $ convert -delay 20 -loop 0 *.png animation.gif
 
-<img src="{{ site.baseurl }}/images/figure_gifs/convert.gif" style="width:500px; height:306px"/>
+<img src="{{ site.baseurl }}/images/convert.gif" style="width:500px; height:306px"/>
 
 
 Conclusion
