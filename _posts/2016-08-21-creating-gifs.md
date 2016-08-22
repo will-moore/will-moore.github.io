@@ -7,6 +7,7 @@ If a picture is worth a thousand words, an animation can be worth even more!
 Sometimes a screenshot isn't enough to illustrate a feature, *but* you don't
 want to create a full-on demo movie. For a tweet-sized demo you just need a gif...
 
+UPDATE: Interesting read: [The gif is dead long live the gif](http://www.popularmechanics.com/technology/a21457/the-gif-is-dead-long-live-the-gif/).
 
 First step is to create a short movie.
 We at [OME](https://www.openmicroscopy.org/site) use [Snapz Pro](http://www.ambrosiasw.com/utilities/snapzprox/).
