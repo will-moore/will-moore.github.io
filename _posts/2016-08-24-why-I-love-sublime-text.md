@@ -5,11 +5,10 @@ title: Why I love Sublime Text
 
 For a long time now, my editor of choice has been Sublime Text 2.
 However, it's best features are not obvious out of the box, and
-some need installing as plugins.
+some need installing as packages.
 
-If you're using Sublime Text then don't miss out: follow these simple
-steps to enhance your workflow. If you're not using it, maybe
-these tips will persuade you to give it a try!
+If you're using Sublime Text then you shouldn't miss out all all this
+goodness. You might find your own favorites, but these are my suggestions:
 
 Keyboard Shortcuts
 ==================
