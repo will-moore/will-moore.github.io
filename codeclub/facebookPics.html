@@ -85,7 +85,20 @@
 
       FB.api('/' + response.id + '/albums', function(response) {
         console.log(response);
-      })
+        var albums = response.data;
+        // pick a random album
+        var idx = parseInt(Math.random() * albums.length);
+        var album = albums[idx];
+
+        FB.api('/' + album.id + '/photos?fields=images', function(response) {
+          console.log(response);
+          var photos = response.data;
+          photos.forEach((photo) => {
+            // we want the 3rd image (1087 x 720)
+            console.log(photo.images[2].source)
+          })
+        });
+      });
     });
   }
 </script>
