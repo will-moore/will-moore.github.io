@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>Maths Quiz</title>
+
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+        <link rel="stylesheet" href="css/reveal.css">
+        <link rel="stylesheet" href="css/theme/beige.css" id="theme">
+
+        <style>
+            .reveal section>div {
+                background: white;
+                border-radius: 15px;
+                padding: 20px;
+                color: #ccc;
+                font-size: 60px;
+            }
+            .reveal span.multi, #time {
+                color: red;
+                font-weight: bold;
+            }
+            .reveal input.answer {
+                font-size: 60px;
+                width: 100px;
+                padding-left: 20px;
+            }
+            .reveal button {
+                font-size: 60px;
+                width: 140px;
+                cursor: pointer;
+                border: solid #ddd 1px;
+                border-radius: 15px;
+                margin: 2px;
+                background: transparent;
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <div class="reveal">
+
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+                
+                <!-- Opening Slide -->
+                <section data-background="images/1.png" style="width: 1000px">
+                    <div>
+                        <p>
+                        Welcome to the "Times Table" test.<br>
+                        Choose a times table...<br>
+                        <button class='pickNum' value='2'>2 x</button>
+                        <button class='pickNum' value='3'>3 x</button>
+                        <button class='pickNum' value='4'>4 x</button>
+                        <button class='pickNum' value='5'>5 x</button>
+                        <button class='pickNum' value='6'>6 x</button>
+                        <button class='pickNum' value='7'>7 x</button>
+                        <button class='pickNum' value='8'>8 x</button>
+                        <button class='pickNum' value='9'>9 x</button>
+                        <button class='pickNum' value='10'>10 x</button>
+                        <button class='pickNum' value='11'>11 x</button>
+                        <button class='pickNum' value='12'>12 x</button>
+                        <button class='pickNum' value='all'>all</button>
+                    </div>
+                </section>
+
+                <!-- Question slide - This is cloned lots! -->
+                <section data-background="images/1.png">
+                    <div>
+                        What is
+                        <span class="multi multi1">4</span> x
+                        <span class="multi multi2">6</span>?
+                        <input class="answer"></input>
+                    </div>
+                </section>
+
+                <!-- Final Slide -->
+                <section data-background="images/1.png" data-state="finished">
+                    <div>
+                        Finished in <span id='time'></span> seconds!
+                    </div>
+                </section>
+            </div>
+
+        </div>
+
+        <script src="lib/js/head.min.js"></script>
+        <script src="js/reveal.js"></script>
+        <script>
+            function shuffleArray(array) {
+                for (var i = array.length - 1; i > 0; i--) {
+                    var j = Math.floor(Math.random() * (i + 1));
+                    var temp = array[i];
+                    array[i] = array[j];
+                    array[j] = temp;
+                }
+                return array;
+            }
+
+            let startTime = 0;
+            // When slide changes, focus the .answer input
+            function focusPresentInput() {
+                var presentInput = document.querySelector('.present input');
+                if (presentInput) {
+                    setTimeout(() => (presentInput.focus()), 500);
+                }
+            }
+            Reveal.addEventListener( 'slidechanged', function( event ) {
+                focusPresentInput();
+            } );
+
+            // When we load, clone the question page...
+            var sections = document.getElementsByTagName('section');
+            let last = sections[2];
+            var slides = document.getElementsByClassName('slides')[0];
+            for (let i=0; i<11; i++) {
+                let clone = sections[1].cloneNode(true);
+                var imgId = (i % 3) + 1;
+                clone.setAttribute('data-background', 'images/' + imgId + '.png');
+                // Insert before last slide
+                slides.insertBefore(clone, last);
+            }
+
+            let values = [1,2,3,4,5,6,7,8,9,10,11,12];
+            shuffleArray(values);
+            // Handle start, by picking times table...
+            let pickNums = document.getElementsByClassName('pickNum');
+            [...pickNums].forEach((b) => {
+                b.addEventListener('click', (e) => {
+                    console.log(e.target.value);
+                    let val = e.target.value;
+                    [...document.getElementsByClassName('multi1')].forEach((el, i) => {
+                        if (val === 'all') {
+                            el.textContent = values[i];
+                        } else {
+                            el.textContent = val;
+                        }
+                    });
+                    startTime = Date.now();
+                    Reveal.next();
+                });
+            });
+
+            let numbers = [1,2,3,4,5,6,7,8,9,10,11,12];
+            shuffleArray(numbers);
+            var multis = document.getElementsByClassName('multi2');
+            for (let i=0; i<multis.length; i++) {
+                let value = numbers[i];
+                multis[i].textContent = value;
+            }
+
+            // Handle 'Enter' keyup for each <input>
+            var answers = document.getElementsByClassName("answer");
+            for (var i=0; i<answers.length; i++){
+                answers[i].onkeyup = function(event){
+                    if (event.which === 13) {
+                        // get multi values
+                        let div = this.parentElement;
+                        let m = [...div.childNodes].reduce((prev, ch) => {
+                            if (ch.tagName && ch.tagName.toLowerCase() === "span") {
+                                prev.push(parseInt(ch.textContent, 10));
+                            }
+                            return prev;
+                        }, []);
+                        console.log(m[0] * m[1], this.value);
+                        // If they got the answer right, go to next page...
+                        if (this.value == m[0] * m[1]) {
+                            Reveal.next();
+                        }
+                    }
+                };
+            };
+
+            Reveal.addEventListener( 'finished', function() {
+                let timer = (Date.now() - startTime) / 1000;
+                document.getElementById('time').textContent = timer;
+            }, false );
+
+            // Full list of configuration options available at:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: false,
+                progress: true,
+                history: false,
+                center: true,
+
+                transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+                // Optional reveal.js plugins
+                dependencies: [
+
+                ]
+            });
+
+        </script>
+
+    </body>
+</html>
