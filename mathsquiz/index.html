@@ -40,6 +40,11 @@
                 margin: 2px;
                 background: transparent;
             }
+            #goAgain {
+                width: 400px;
+                background: gold;
+                margin: 30px;
+            }
         </style>
     </head>
 
@@ -85,6 +90,9 @@
                 <section data-background="images/1.png" data-state="finished">
                     <div>
                         Finished in <span id='time'></span> seconds!
+
+                        <br>
+                        <button id='goAgain'>Go Again...</button>
                     </div>
                 </section>
             </div>
@@ -120,7 +128,7 @@
             var sections = document.getElementsByTagName('section');
             let last = sections[2];
             var slides = document.getElementsByClassName('slides')[0];
-            for (let i=0; i<11; i++) {
+            for (let i=0; i<2; i++) {
                 let clone = sections[1].cloneNode(true);
                 var imgId = (i % 3) + 1;
                 clone.setAttribute('data-background', 'images/' + imgId + '.png');
@@ -134,7 +142,6 @@
             let pickNums = document.getElementsByClassName('pickNum');
             [...pickNums].forEach((b) => {
                 b.addEventListener('click', (e) => {
-                    console.log(e.target.value);
                     let val = e.target.value;
                     [...document.getElementsByClassName('multi1')].forEach((el, i) => {
                         if (val === 'all') {
@@ -169,7 +176,6 @@
                             }
                             return prev;
                         }, []);
-                        console.log(m[0] * m[1], this.value);
                         // If they got the answer right, go to next page...
                         if (this.value == m[0] * m[1]) {
                             Reveal.next();
@@ -182,6 +188,16 @@
                 let timer = (Date.now() - startTime) / 1000;
                 document.getElementById('time').textContent = timer;
             }, false );
+
+            document.getElementById('goAgain').addEventListener('click', function(){
+                // clear all previous answers...
+                var inputs = document.getElementsByTagName('input');
+                [...inputs].forEach(function(i){
+                    i.value = '';
+                });
+                // and go back to start
+                Reveal.slide( 0, 0, 0 );
+            })
 
             // Full list of configuration options available at:
             // https://github.com/hakimel/reveal.js#configuration
