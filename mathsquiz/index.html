@@ -339,7 +339,7 @@
                 FB.api('/' + album.id + '/photos?fields=images', function(response) {
                   console.log(response);
                   var photos = response.data;
-                  var urls = photos.forEach((photo) => {
+                  var urls = photos.map((photo) => {
                     // we want the 2nd image
                     return photo.images[1].source
                   });
