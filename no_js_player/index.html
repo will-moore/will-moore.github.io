@@ -1,0 +1,292 @@
+
+<html>
+
+<head>
+
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #666;
+    }
+    .images {
+        position: absolute;
+        width: 809px;
+        height: 608px;
+        top: 0;
+    }
+    .images img {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+    }
+
+    input {
+        z-index: 100;
+    }
+
+    label {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+        transition-duration: 0.3s;
+        transition-property: all;
+        box-sizing: border-box;
+        z-index: 100;
+    }
+
+    @keyframes fadeIn {
+        from {opacity:1;} 3% {opacity:1;} to {opacity:1;}
+    }
+    @keyframes fadeIn2 {
+        from {opacity:0;} 7% {opacity:0;} 10% {opacity:1;} to {opacity:1;}
+    }
+    @keyframes fadeIn3 {
+        from {opacity:0;} 14% {opacity:0;} 17% {opacity:1;} to {opacity:1;}
+    }
+    @keyframes fadeIn4 {
+        from {opacity:0;} 21% {opacity:0;} 24% {opacity:1;} to {opacity:1;}
+    }
+    @keyframes fadeIn5 {
+        from {opacity:0;} 28% {opacity:0;} 31% {opacity:1;} to {opacity:1;}
+    }
+    @keyframes fadeIn6 {
+        from {opacity:0;} 35% {opacity:0;} 38% {opacity:1;} to {opacity:1;}
+    }
+    @keyframes fadeIn7 {
+        from {opacity:0;} 42% {opacity:0;} 45% {opacity:1;} to {opacity:1;}
+    }
+    @keyframes fadeIn8 {
+        from {opacity:0;} 49% {opacity:0;} 51% {opacity:1;} to {opacity:1;}
+    }
+    @keyframes fadeIn9 {
+        from {opacity:0;} 56% {opacity:0;} 59% {opacity:1;} to {opacity:1;}
+    }
+    @keyframes fadeIn10 {
+        from {opacity:0;} 63% {opacity:0;} 66% {opacity:1;} to {opacity:1;}
+    }
+    @keyframes fadeIn11 {
+        from {opacity:0;} 70% {opacity:0;} 73% {opacity:1;} to {opacity:1;}
+    }
+    @keyframes fadeIn12 {
+        from {opacity:0;} 77% {opacity:0;} 80% {opacity:1;} to {opacity:1;}
+    }
+    @keyframes fadeIn13 {
+        from {opacity:0;} 84% {opacity:0;} 87% {opacity:1;} to {opacity:1;}
+    }
+
+    @keyframes progress {
+        from {width:0;} to {width:100%;}
+    }
+     
+
+     img {
+        opacity:0;
+     }
+ 
+
+    .images img:nth-of-type(1) {
+        opacity:1;
+        animation:fadeIn ease-in 1;
+    }
+    .images img:nth-of-type(2) {
+        animation:fadeIn2 ease-in 1;
+    }
+    .images img:nth-of-type(3) {
+        animation:fadeIn3 ease-in 1;
+    }
+    .images img:nth-of-type(4) {
+        animation:fadeIn4 ease-in 1;
+    }
+    .images img:nth-of-type(5) {
+        animation:fadeIn5 ease-in 1;
+    }
+    .images img:nth-of-type(6) {
+        animation:fadeIn6 ease-in 1;
+    }
+    .images img:nth-of-type(7) {
+        animation:fadeIn7 ease-in 1;
+    }
+    .images img:nth-of-type(8) {
+        animation:fadeIn8 ease-in 1;
+    }
+    .images img:nth-of-type(9) {
+        animation:fadeIn9 ease-in 1;
+    }
+    .images img:nth-of-type(10) {
+        animation:fadeIn10 ease-in 1;
+    }
+    .images img:nth-of-type(11) {
+        animation:fadeIn11 ease-in 1;
+    }
+    .images img:nth-of-type(12) {
+        animation:fadeIn12 ease-in 1;
+    }
+    .images img:nth-of-type(13) {
+        animation:fadeIn13 ease-in 1;
+    }
+
+    #progress {
+        position: absolute;
+        bottom: 10px;
+        height: 5px;
+        background: red;
+        animation: progress ease-in 1;
+    }
+
+
+    #toggle1:checked ~ .frame {
+        animation-duration:50s;
+        animation-fill-mode:forwards;
+        animation-iteration-count: infinite;
+    }
+    #toggle2:checked ~ .frame {
+        animation-duration:20s;
+        animation-fill-mode:forwards;
+        animation-iteration-count: infinite;
+    }
+    #toggle3:checked ~ .frame {
+        animation-duration:7s;
+        animation-fill-mode:forwards;
+        animation-iteration-count: infinite;
+    }
+    #toggle4:checked ~ .frame {
+        animation-duration:2.5s;
+        animation-fill-mode:forwards;
+        animation-iteration-count: infinite;
+    }
+    #toggle5:checked ~ .frame {
+        animation-duration:1.0s;
+        animation-fill-mode:forwards;
+        animation-iteration-count: infinite;
+    }
+
+    /* hide 'stop' checkbox */
+    input {
+        opacity: 0;
+    }
+
+    label[for="stop"] {
+        display: block;
+        border: solid #eee 10px;
+        border-width: 0 10px;
+        width: 30px;
+        height: 30px;
+        background: transparent;
+        border-color: transparent;
+        border-left-color: #eee;
+        border-right-color: #eee;
+        margin-left: auto;
+        margin-right: auto;
+        position: relative;
+        top: 50px;
+    }
+
+    #stop:checked ~div label[for="stop"] {
+        border-width: 15px;
+        border-left-width: 25px;
+        border-right-width: 5px;
+        border-style: solid solid outset;
+        border-right-color: transparent;
+    }
+
+    #stop:checked ~ .frame {
+        animation-play-state: paused;
+    }
+
+    #toggle1:checked ~div label[for="toggle1"],
+    #toggle2:checked ~div label[for="toggle2"],
+    #toggle3:checked ~div label[for="toggle3"],
+    #toggle4:checked ~div label[for="toggle4"],
+    #toggle5:checked ~div label[for="toggle5"] {
+        background: white;
+    }
+
+    input[type="radio"]:checked+label {
+        color: #eee;
+    }
+
+    .controls {
+        z-index: 315;
+        width: 300px;
+        height: 100px;
+        background: rgba(100,100,100,0.3);
+        border-radius: 10px;
+        display: block;
+        position: absolute;
+        left: 50%;
+        margin-left: -150px;
+        text-align: center;
+        bottom: 50px;
+    }
+
+    .controls:hover {
+        background: rgba(100,100,100,0.75);
+    }
+
+    .speed {
+        width: 15px;
+        height: 15px;
+        background: black;
+        border-radius: 5px;
+    }
+
+    span {
+        color: #eee;
+    }
+   
+</style>
+
+<script type="text/javascript">
+    
+</script>
+
+</head>
+
+<body>
+
+<div class="images">
+    <input id="toggle1" type="radio" name="toggle" />
+    <input id="toggle2" type="radio" name="toggle" checked />
+    <input id="toggle3" type="radio" name="toggle" />
+    <input id="toggle4" type="radio" name="toggle" />
+    <input id="toggle5" type="radio" name="toggle" />
+
+
+    <input id="stop" type="checkbox" name="stop" />
+
+    <div class="controls">
+        <label for="stop"></label>
+        <span>Slow</span>
+        <label class="speed" for="toggle1"></label>
+        <label class="speed" for="toggle2"></label>
+        <label class="speed" for="toggle3"></label>
+        <label class="speed" for="toggle4"></label>
+        <label class="speed" for="toggle5"></label>
+        <span>Fast</span>
+    </div>
+
+
+    <img class="frame" src="images/kitchen01.png"/>
+    <img class="frame" src="images/kitchen02.png"/>
+    <img class="frame" src="images/kitchen03.png"/>
+    <img class="frame" src="images/kitchen04.png"/>
+    <img class="frame" src="images/kitchen05.png"/>
+    <img class="frame" src="images/kitchen06.png"/>
+    <img class="frame" src="images/kitchen07.png"/>
+    <img class="frame" src="images/kitchen08.png"/>
+    <img class="frame" src="images/kitchen09.png"/>
+    <img class="frame" src="images/kitchen10.png"/>
+    <img class="frame" src="images/kitchen11.png"/>
+    <img class="frame" src="images/kitchen12.png"/>
+    <img class="frame" src="images/kitchen13.png"/>
+
+    <div class="frame" id="progress"></div>
+</div>
+
+</body>
+
+</html>
