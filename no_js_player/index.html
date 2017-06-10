@@ -77,6 +77,9 @@
     @keyframes fadeIn13 {
         from {opacity:0;} 84% {opacity:0;} 87% {opacity:1;} to {opacity:1;}
     }
+    @keyframes fadeIn14 {
+        from {opacity:0;} 91% {opacity:0;} 94% {opacity:1;} to {opacity:1;}
+    }
 
     @keyframes progress {
         from {width:0;} to {width:100%;}
@@ -127,6 +130,9 @@
     }
     .images img:nth-of-type(13) {
         animation:fadeIn13 ease-in 1;
+    }
+    .images img:nth-of-type(14) {
+        animation:fadeIn14 ease-in 1;
     }
 
     #progress {
@@ -227,16 +233,44 @@
         background: rgba(100,100,100,0.75);
     }
 
+    @keyframes bounce {
+        from {top:-1000px;}
+/*        20% {top:200px;}
+        40% {top:-100;}
+        60% {top:50px;}
+        80% {top:-25px;}*/
+        to {top:0;}
+    }
+
     .speed {
         width: 15px;
         height: 15px;
         background: black;
         border-radius: 5px;
+        transition-duration: 1s;
+        transition-property: all;
+        animation: bounce ease-in 1;
+        animation-fill-mode:forwards;
+        animation-iteration-count: 1;
+        animation-delay: 0s;
+        animation-duration:1s;
+        top:-1000px;
     }
 
     span {
         color: #eee;
     }
+
+
+    /*@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }*/
+     
+    
+     
+    .speed.one {animation-delay: 0s;}
+    .speed.two {animation-delay: 0.1s;}
+    .speed.three {animation-delay: 0.2s;}
+    .speed.four {animation-delay: 0.3s;}
+    .speed.five {animation-delay: 0.4s;}
    
 </style>
 
@@ -261,11 +295,11 @@
     <div class="controls">
         <label for="stop"></label>
         <span>Slow</span>
-        <label class="speed" for="toggle1"></label>
-        <label class="speed" for="toggle2"></label>
-        <label class="speed" for="toggle3"></label>
-        <label class="speed" for="toggle4"></label>
-        <label class="speed" for="toggle5"></label>
+        <label class="one speed" for="toggle1"></label>
+        <label class="two speed" for="toggle2"></label>
+        <label class="three speed" for="toggle3"></label>
+        <label class="four speed" for="toggle4"></label>
+        <label class="five speed" for="toggle5"></label>
         <span>Fast</span>
     </div>
 
@@ -283,6 +317,7 @@
     <img class="frame" src="images/kitchen11.png"/>
     <img class="frame" src="images/kitchen12.png"/>
     <img class="frame" src="images/kitchen13.png"/>
+    <img class="frame" src="images/kitchen14.png"/>
 
     <div class="frame" id="progress"></div>
 </div>
