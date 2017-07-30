@@ -96,6 +96,13 @@ as discussed in this [stackexchange question](http://unix.stackexchange.com/ques
 
 <img src="{{ site.baseurl }}/images/convert.gif" style="width:500px; height:306px"/>
 
+If you need to resize the png images before creating a gif, you can use
+imagemagick's [mogrify](https://www.imagemagick.org/script/mogrify.php)
+command.
+
+	# Resize all pngs to 50%
+	$ mogrify -resize 50% *.png
+
 
 Conclusion
 ==========
