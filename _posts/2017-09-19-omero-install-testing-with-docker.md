@@ -7,7 +7,7 @@ title: OMERO install testing with Docker
 <img src="{{ site.baseurl }}/images/docker_horizontal_large.png" style="width:246px; margin:20px"/>
 
 
-The OME team, particularly Jean-Marie, have been working hard on
+The OME team, particularly Jean-Marie and Simon, have been working hard on
 improving the OMERO install docs.
 
 We have a set of [install scripts](https://github.com/ome/omero-install/tree/develop/linux)
