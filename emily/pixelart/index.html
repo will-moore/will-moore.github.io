@@ -163,5 +163,23 @@
   </div>
   
 </div>
+
+<script>
+    var down = false;
+    document.onmousedown = () => {
+        console.log("down")
+        down = true;
+    }
+    document.onmouseup = () => {
+        console.log("up")
+        down = false;
+    }
+    var p = document.querySelectorAll(".pixel");
+    p.forEach((pix) => {
+        pix.onmouseover = (event) => {
+            if (down) setPixelColor(event.target);
+        }
+    })
+</script>
 </body>
 </html>
