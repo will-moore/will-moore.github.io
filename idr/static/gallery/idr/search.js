@@ -207,7 +207,7 @@ function renderMapr(maprData) {
     let type = studyData['@type'].split('#')[1].toLowerCase();
     let maprKey = configId.replace('mapr_', '');
     let maprValue = document.getElementById('maprQuery').value;
-    return `/mapr/${ maprKey }/?value=${ maprValue }&show=${ type }-${ studyData['@id'] }`;
+    return `https://idr.openmicroscopy.org/mapr/${ maprKey }/?value=${ maprValue }&show=${ type }-${ studyData['@id'] }`;
   }
   htmlFunc = maprHtml;
 
