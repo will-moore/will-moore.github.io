@@ -1,0 +1,155 @@
+
+
+<!doctype html>
+<html class="no-js" lang="en" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>IDR: </title>
+        <link rel="shortcut icon" type="image/x-icon" href="http://idr.openmicroscopy.org/about/img/logos/favicon-idr.ico">
+
+        <link rel="stylesheet" type="text/css" media="all" href="//fonts.googleapis.com/css?family=Open+Sans:400,700,400italic,700italic">
+        <link rel="stylesheet" type="text/css" media="all" href="//fonts.googleapis.com/css?family=Nunito">
+        <link href="http://idr.openmicroscopy.org/about/css/foundation.min.css" rel="stylesheet">
+        <link href="http://idr.openmicroscopy.org/about/css/openmicroscopy.css" rel="stylesheet">
+        <link href="http://idr.openmicroscopy.org/about/css/idr.css" rel="stylesheet">
+        <link href="http://idr.openmicroscopy.org/about/fonts/fontawesome-webfont.woff2?v=4.3.0" rel="stylesheet">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+        <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
+
+        <script src="http://idr.openmicroscopy.org/about/js/vendor/foundation.js"></script>
+
+        <script src="/static/gallery/idr/model.js"></script>
+        <link href="/static/gallery/idr/studies.css" rel="stylesheet">
+    </head>
+
+    <body>
+
+        <div class="nav-secondary">
+            <div class="top-bar-right">
+                <ul class="menu">
+                </ul>
+            </div>
+        </div>
+
+        <div class="main-nav-bar top-bar" id="main-menu">
+            <div class="top-bar-left">
+                <ul class="dropdown menu" data-dropdown-menu>
+                    <li><a class="logo" href="/gallery/">
+                        <img src="http://idr.openmicroscopy.org/about/img/logos/logo-idr.svg" }}" alt="IDR logo"></a></li>
+                </ul>
+            </div>
+            
+        </div>
+        </div>
+
+        <a name="page-top"></a>
+
+
+        
+
+<hr class="whitespace" style="height: 0">
+
+<div class="row column text-center">
+  <h1>Welcome to  IDR</h1>
+
+<div class="small-10 small-centered medium-10 medium-centered columns">
+
+    <div class="row horizontal">
+
+      <div class="small-12 medium-12 large-2 columns">
+        <h2>Search by:</h2>
+      </div>
+      <div style="padding:0" class="small-12 medium-4 large-3 columns">
+        <select id="maprConfig">
+          <optgroup id="studyKeys" label="Study Attributes">
+            <!-- Map-Annotation keys loaded here -->
+          </optgroup>
+          <optgroup id="maprKeys" label="Image Attributes">
+          </optgroup>
+        </select>
+      </div>
+      <div class="small-12 medium-8 large-7 columns">
+        <input id="maprQuery" type="text" placeholder="Publication Authors">
+      </div>
+    </div>
+
+    <div id="filterCount" class="row horizontal">
+    </div>
+</div>
+
+<div id="studies" class="row horizontal">
+  Loading Studies...
+
+  <script>
+    function studyHtml(props) {
+      return `
+      <a target="_blank" href="${ props.studyLink }">
+        <div class="studyBackground" style="padding: 0">
+          <img class="studyImage" src="" />
+        </div>
+        <div class="studyText">
+          <p title="${ props.studyDesc }">
+            <span style='color:#1976d2'>${ props.idrId }</span>:
+            ${ props.title }
+          </p>
+        </div>
+        <div class="studyAuthors">
+          ${ props.authors }
+        </div>
+      </a>
+      <a class="viewerLink" title="Open image in viewer" target="_blank"
+         href="">
+        <i class="fas fa-eye"></i>
+      </a>
+      `
+    }
+
+    function maprHtml(props, data) {
+      return `
+      <a target="_blank" href="${ props.studyLink }">
+        
+        <div id="${ props.type }-${ data['@id'] }" class="maprText">
+          <p>Found ${ data.imageCount } images in study:</p>
+          <p title="${ props.studyDesc }">
+            <span style='color:#1976d2'>${ props.idrId }</span>:
+            ${ props.title }
+          </p>
+        </div>
+      </a>
+      `
+    }
+  </script>
+</div>
+
+
+<script>
+  // Various global constants from bin/omero config set...
+  const IDR_TYPE = "";
+  var FILTER_KEYS = [{"value": "Name", "label": "Name (IDR number)"}, "Imaging Method", "Organism", "Publication Authors", "Publication Title", "Screen Technology Type", "Screen Type", "Study Type"];
+  var FILTER_MAPR_KEYS = ["antibody", "cellline", "gene", "phenotype", "sirna"];
+  const GALLERY_INDEX = "/gallery/";
+  const BASE_URL = "https://idr.openmicroscopy.org";
+  const CATEGORY_QUERIES = {"yeast": {"index": 5, "query": "Organism:Saccharomyces cerevisiae OR Organism:Schizosaccharomyces pombe", "label": "Yeast studies"}, "humancellscreen": {"index": 6, "query": "Organism:Homo sapiens AND Study Type:high content screen", "label": "High-content screening (human)"}, "proteinlocalization": {"index": 3, "query": "Study Type:protein localization", "label": "Protein localization studies"}, "timelapse": {"index": 1, "query": "Study Type:time OR Study Type:5D OR Study Type:3D-tracking", "label": "Time-lapse imaging"}, "histology": {"index": 4, "query": "Study Type:histology", "label": "Digital pathology imaging"}, "lightsheet": {"index": 2, "query": "Study Type:light sheet", "label": "Light sheet fluorescence microscopy"}, "latest": {"index": 0, "query": "FIRST10:date", "label": "Most Recent"}};
+</script>
+
+<script src="/static/gallery/idr/search.js"></script>
+
+
+
+        
+        <div id="page-anchor"><a href="#page-top"><i class="fa fa-arrow-up"></i> back to top</a></div>
+
+        <hr class="whitespace">
+
+        <script>
+            $(document).foundation();
+        </script>
+
+    </body>
+
+</html>
