@@ -29,8 +29,9 @@ function populateInputsFromSearch() {
     }
   }
   if (query) {
-    let configId = query.split(":")[0];
-    let value = query.split(":")[1];
+    let splitIndex = query.indexOf(':');
+    let configId = query.slice(0, splitIndex);
+    let value = query.slice(splitIndex + 1);
     if (configId && value) {
       document.getElementById("maprConfig").value = configId;
       document.getElementById("maprQuery").value = value;
@@ -87,7 +88,17 @@ document.getElementById('maprQuery').onfocus = (event) => {
 
 // ------ AUTO-COMPLETE -------------------
 
-$("#maprQuery").autocomplete({
+$("#maprQuery")
+    .keyup(event => {
+      if (event.which == 13) {
+        $(event.target).autocomplete( "close" );
+        filterAndRender();
+        // Add to browser history. Handled by onpopstate on browser Back
+        let configId = document.getElementById("maprConfig").value;
+        window.history.pushState({}, "", `?query=${ configId }:${ event.target.value }`);
+      }
+    })
+    .autocomplete({
     autoFocus: false,
     delay: 1000,
     source: function( request, response ) {
@@ -158,6 +169,9 @@ $("#maprQuery").autocomplete({
     select: function(event, ui) {
         $(this).val(ui.item.value);
         filterAndRender();
+        // Add to browser history. Handled by onpopstate on browser Back
+        let configId = document.getElementById("maprConfig").value;
+        window.history.pushState({}, "", `?query=${ configId }:${ ui.item.value }`);
 
         return false;
     }
@@ -344,7 +358,19 @@ function loadStudyThumbnails() {
 // ----------- Load / Filter Studies --------------------
 
 // Do the loading and render() when done...
-model.loadStudies(filterAndRender);
+model.loadStudies(() => {
+  // Immediately filter by Super category
+  if (SUPER_CATEGORY && SUPER_CATEGORY.query) {
+    model.studies = model.filterStudiesByMapQuery(SUPER_CATEGORY.query);
+  }
+  filterAndRender();
+});
+
+// Handle browser Back and Forwards - redo filtering
+window.onpopstate = (event) => {
+  populateInputsFromSearch();
+  filterAndRender();
+}
 
 
 // Load MAPR config

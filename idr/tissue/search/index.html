@@ -130,11 +130,12 @@
 <script>
   // Various global constants from bin/omero config set...
   const IDR_TYPE = "";
-  var FILTER_KEYS = [{"value": "Name", "label": "Name (IDR number)"}, "Imaging Method", "Organism", "Publication Authors", "Publication Title", "Screen Technology Type", "Screen Type", "Study Type"];
+  var FILTER_KEYS = [{"value": "Name", "label": "Name (IDR number)"}, "Imaging Method", "License", "Organism", "Publication Authors", "Publication Title", "Screen Technology Type", "Screen Type", "Study Type"];
   var FILTER_MAPR_KEYS = ["antibody", "cellline", "gene", "phenotype", "sirna"];
   const GALLERY_INDEX = "/gallery/";
   const BASE_URL = "https://idr.openmicroscopy.org";
   const CATEGORY_QUERIES = {"yeast": {"index": 5, "query": "Organism:Saccharomyces cerevisiae OR Organism:Schizosaccharomyces pombe", "label": "Yeast studies"}, "humancellscreen": {"index": 6, "query": "Organism:Homo sapiens AND Study Type:high content screen", "label": "High-content screening (human)"}, "proteinlocalization": {"index": 3, "query": "Study Type:protein localization", "label": "Protein localization studies"}, "timelapse": {"index": 1, "query": "Study Type:time OR Study Type:5D OR Study Type:3D-tracking", "label": "Time-lapse imaging"}, "histology": {"index": 4, "query": "Study Type:histology", "label": "Digital pathology imaging"}, "lightsheet": {"index": 2, "query": "Study Type:light sheet", "label": "Light sheet fluorescence microscopy"}, "latest": {"index": 0, "query": "FIRST10:date", "label": "Most Recent"}};
+  var SUPER_CATEGORY  = {"query": "Study Type: histology OR Imaging Method: Multi-Photon OR Study Type: in situ OR Study Type: organoids OR Publication Title: human proteome OR Study Type: TARDIS OR Study Type: zygotes OR Study Type: zebrafish OR Study Type: electron OR Study Type: cytometry", "image": "https://idr.openmicroscopy.org/webgateway/render_image_region/5470164/0/0/?region=1024,1024,696,520", "label": "Tissue - IDR"} ;
 </script>
 
 <script src="/idr/static/gallery/idr/search.js"></script>
