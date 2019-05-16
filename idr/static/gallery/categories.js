@@ -23,6 +23,13 @@ document.getElementById('maprQuery').onfocus = (event) => {
 
 // ------ AUTO-COMPLETE -------------------
 
+function showSpinner() {
+  document.getElementById('spinner').style.visibility = 'visible';
+}
+function hideSpinner() {
+  document.getElementById('spinner').style.visibility = 'hidden';
+}
+
 $("#maprQuery")
   .keyup(event => {
     if (event.which == 13) {
@@ -49,28 +56,44 @@ $("#maprQuery")
           return;
         }
 
-        // If empty, don't handle mapr...
-        if (request.term.length === 0) {
-          return;
-        }
-
         // Auto-complete to filter by mapr...
         configId = configId.replace('mapr_', '');
-        let url = `${ BASE_URL }/mapr/api/autocomplete/${ configId }/`;
         let case_sensitive = false;
 
+        let requestData = {
+            case_sensitive: case_sensitive,
+            '_': CACHE_BUSTER,    // CORS cache-buster
+        }
+        let url;
+        if (request.term.length === 0) {
+          // Try to list all top-level values.
+          // This works for 'wild-card' configs where number of values is small e.g. Organism
+          // But will return empty list for e.g. Gene
+          url = `${ BASE_URL }/mapr/api/${ configId }/`;
+          requestData.orphaned = true
+        } else {
+          // Find auto-complete matches
+          url = `${ BASE_URL }/mapr/api/autocomplete/${ configId }/`;
+          requestData.value = case_sensitive ? request.term : request.term.toLowerCase();
+          requestData.query = true;   // use a 'like' HQL query
+        }
+        showSpinner();
         $.ajax({
             dataType: "json",
             type : 'GET',
             url: url,
-            data: {
-                value: case_sensitive ? request.term : request.term.toLowerCase(),
-                query: true,
-                case_sensitive: case_sensitive,
-                '_': Math.random,    // cache-buster
-            },
+            data: requestData,
             success: function(data) {
-                if (data.length > 0) {
+                hideSpinner();
+                if (request.term.length === 0) {
+                  // Top-level terms in 'maps'
+                  if (data.maps && data.maps.length > 0) {
+                    let terms = data.maps.map(m => m.id);
+                    terms.sort();
+                    response(terms);
+                  }
+                }
+                else if (data.length > 0) {
                     response( $.map( data, function(item) {
                         return item;
                     }));
@@ -79,6 +102,7 @@ $("#maprQuery")
                 }
             },
             error: function(data) {
+                hideSpinner();
                 response([{ label: 'Error occured.', value: -1 }]);
             }
         });
@@ -163,7 +187,10 @@ function renderStudy(studyData, elementId, linkFunc) {
      desc = desc.split(title)[1];
    }
   // First line is e.g. "Screen Description". Show NEXT line only.
-  let studyDesc = desc.split('\n').filter(l => l.length > 0)[1];
+  let studyDesc = "";
+  if (desc) {
+    studyDesc = desc.split('\n').filter(l => l.length > 0)[1];
+  }
 
   let idrId = studyData.Name.split('-')[0];  // idr0001
   let authors = model.getStudyValue(studyData, "Publication Authors") || "";
@@ -234,7 +261,7 @@ model.loadStudies(() => {
 
 
 // Load MAPR config
-fetch("/idr" + GALLERY_INDEX + 'idr/mapr/config.js')
+fetch('/idr' + GALLERY_INDEX + 'idr/mapr/config.js')
   .then(response => response.json())
   .then(data => {
     mapr_settings = data;
