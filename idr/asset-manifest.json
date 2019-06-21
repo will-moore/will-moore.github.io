@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "/idr/static/css/main.06b75555.chunk.css",
+    "main.js": "/idr/static/js/main.3ba6455b.chunk.js",
+    "main.js.map": "/idr/static/js/main.3ba6455b.chunk.js.map",
+    "runtime~main.js": "/idr/static/js/runtime~main.edf97708.js",
+    "runtime~main.js.map": "/idr/static/js/runtime~main.edf97708.js.map",
+    "static/css/2.8412c9c5.chunk.css": "/idr/static/css/2.8412c9c5.chunk.css",
+    "static/js/2.79371af0.chunk.js": "/idr/static/js/2.79371af0.chunk.js",
+    "static/js/2.79371af0.chunk.js.map": "/idr/static/js/2.79371af0.chunk.js.map",
+    "index.html": "/idr/index.html",
+    "precache-manifest.3b11a90f0d7a88030cbfbe492fb514db.js": "/idr/precache-manifest.3b11a90f0d7a88030cbfbe492fb514db.js",
+    "service-worker.js": "/idr/service-worker.js",
+    "static/css/2.8412c9c5.chunk.css.map": "/idr/static/css/2.8412c9c5.chunk.css.map",
+    "static/css/main.06b75555.chunk.css.map": "/idr/static/css/main.06b75555.chunk.css.map",
+    "static/media/logo-idr.1561c6e6.svg": "/idr/static/media/logo-idr.1561c6e6.svg",
+    "static/media/index.css": "/idr/static/media/nunito-latin-900italic.ae87e7b4.woff2"
+  }
+}
